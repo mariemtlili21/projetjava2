@@ -20,6 +20,7 @@ public class Patient {
 
     public Patient() {
     }
+    
 
     public Patient(int Id_patient, String Nom_patient, String Prénom_patient, String Email_patient, String Adress_patient, int NumTel_patient, int Age_patient) {
         this.Id_patient = Id_patient;
@@ -30,6 +31,7 @@ public class Patient {
         this.NumTel_patient = NumTel_patient;
         this.Age_patient = Age_patient;
     }
+    
 
     public Patient(String Nom_patient, String Prénom_patient, String Email_patient, String Adress_patient, int NumTel_patient, int Age_patient) {
         this.Nom_patient = Nom_patient;
@@ -39,6 +41,23 @@ public class Patient {
         this.NumTel_patient = NumTel_patient;
         this.Age_patient = Age_patient;
     }
+
+    public Patient(int Id_patient, String Nom_patient, String Prénom_patient, String Email_patient, String Adress_patient) {
+        this.Id_patient = Id_patient;
+        this.Nom_patient = Nom_patient;
+        this.Prénom_patient = Prénom_patient;
+        this.Email_patient = Email_patient;
+        this.Adress_patient = Adress_patient;
+    }
+
+    public Patient(String Nom_patient, String Prénom_patient, String Email_patient, String Adress_patient) {
+        this.Nom_patient = Nom_patient;
+        this.Prénom_patient = Prénom_patient;
+        this.Email_patient = Email_patient;
+        this.Adress_patient = Adress_patient;
+    }
+    
+    
 
     public int getId_patient() {
         return Id_patient;

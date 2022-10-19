@@ -16,10 +16,35 @@ public class Fiche_suivi {
     private String diagnostic;
     private String consigne_medicale;
     private Patient pat ;
+    private Bilan bi;
+    private int id_med;
     
     public Fiche_suivi(){
     
     }
+
+    
+    
+
+    public Fiche_suivi(int id_client, int bilan_id, String diagnostic, String consigne_medicale, Patient pat, Bilan bi) {
+        this.id_client = id_client;
+        this.bilan_id = bilan_id;
+        this.diagnostic = diagnostic;
+        this.consigne_medicale = consigne_medicale;
+        this.pat = pat;
+        this.bi = bi;
+    }  
+
+    public Fiche_suivi(int id_fiche, int id_client, int bilan_id, String diagnostic, String consigne_medicale, Patient pat, Bilan bi) {
+        this.id_fiche = id_fiche;
+        this.id_client = id_client;
+        this.bilan_id = bilan_id;
+        this.diagnostic = diagnostic;
+        this.consigne_medicale = consigne_medicale;
+        this.pat = pat;
+        this.bi = bi;
+    }
+    
 
     public Fiche_suivi(int id_fiche, int id_client, int bilan_id, String diagnostic, String consigne_medicale, Patient pat) {
         this.id_fiche = id_fiche;
@@ -108,10 +133,29 @@ public class Fiche_suivi {
         this.pat = pat;
     }
 
+    public Bilan getBi() {
+        return bi;
+    }
+
+    public void setBi(Bilan bi) {
+        this.bi = bi;
+    }
+    
+    public int getId_med() {
+        return id_med;
+    }
+
+    public void setId_med(int id_med) {
+        this.id_med = id_med;
+    }
+
     @Override
     public String toString() {
-        return "Fiche_suivi{" + "id_fiche=" + id_fiche + ", id_client=" + id_client + ", bilan_id=" + bilan_id + ", diagnostic=" + diagnostic + ", consigne_medicale=" + consigne_medicale + ", pat=" + pat + '}';
+        return "Fiche_suivi{" + "id_fiche=" + id_fiche + ", id_client=" + id_client + ", bilan_id=" + bilan_id + ", diagnostic=" + diagnostic + ", consigne_medicale=" + consigne_medicale + ", pat=" + pat + ", bi=" + bi + '}';
     }
+    
+
+  
 
     
 }

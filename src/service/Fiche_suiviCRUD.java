@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package service;
-
+import entity.Bilan;
 import entity.Fiche_suivi;
 import entity.Patient;
 import java.sql.PreparedStatement;
@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import utils.CurrentData;
 //import java.util.logging.Level;
 //import java.util.logging.Logger;
 import utils.MyConnection;
@@ -73,11 +74,14 @@ public class Fiche_suiviCRUD {
     
     
     
-     /*public List<Fiche_suivi> afficherFiches_suivi(){
+     public List<Fiche_suivi> afficherFiches_suivi(){
          List<Fiche_suivi> mylist = new ArrayList<>();
          
         try {
-            String requete3 = "SELECT `id_fiche `,`diagnostic`,`consigne_medicale`,`Nom_patient`,`Prénom_patient`,`Email_patient`,`Adress_patient`,`NumTel_patient`,`Age_patient` FROM `fiche_suivi` join `patient` ON fiche_suivi.id_client=patient.Id_patient" where id_med = "+CurrentData.current_user_id" ;
+            String requete3 = "SELECT`diagnostic`,`consigne_medicale`,`Nom_patient`,"
+                    + "`Prénom_patient`,`Email_patient`,`Adress_patient`,`NumTel_patient`,`Age_patient`,"
+                    + "`type`,`date_bilan`,`conclusion` FROM `fiche_suivi` join `patient` ON "
+                    + "fiche_suivi.id_client=patient.Id_patient join `bilan` ON fiche_suivi.bilan_id=bilan.id_bilan where fiche_suivi.id_med = 1";
             
             Statement st = new MyConnection().getcnx().createStatement(); 
             ResultSet rs = st.executeQuery(requete3);
@@ -85,21 +89,29 @@ public class Fiche_suiviCRUD {
                 
                 Fiche_suivi f =  new Fiche_suivi();
                 Patient pat = new Patient();
+                Bilan bi = new Bilan();
                 
-                f.setId_fiche(rs.getInt(1));
-                f.setId_client(rs.getInt(2));
+                //f.setId_fiche(rs.getByte("id_fiche "));
+                //f.setId_client(rs.getByte("id_client "));
                 f.setDiagnostic(rs.getString("diagnostic"));
                 f.setConsigne_medicale(rs.getString("consigne_medicale"));
-                 f.setId_med(CurrentData.current_user_id);
+                
+                 //f.setid_med(CurrentData.current_user_id);
                 
                 pat.setNom_patient(rs.getString("Nom_patient"));
                 pat.setPrénom_patient(rs.getString("Prénom_patient"));
                 pat.setEmail_patient(rs.getString("Email_patient"));
                 pat.setAdress_patient(rs.getString("Adress_patient"));
-                pat.setNumTel_patient(rs.getInt(6));
-                pat.setAge_patient(rs.getInt(7));
+                pat.setNumTel_patient(rs.getInt("NumTel_patient"));
+                pat.setAge_patient(rs.getInt("Age_patient"));
                 
-                f.setPatient (pat);
+                bi.setType(rs.getString("type"));
+                bi.setDate_bilan(rs.getTimestamp("date_bilan"));
+                bi.setConclusion(rs.getNString("conclusion"));
+                
+                f.setPat(pat);
+                f.setBi(bi);
+                mylist.add(f);
                       
             }          
         } catch (SQLException ex) {
@@ -108,7 +120,9 @@ public class Fiche_suiviCRUD {
         }
         return mylist;
      }
-     */
+     
+    
+    
      
      public void supprimer(int id) {
         String requete4 = "DELETE FROM `fiche_suivi`  WHERE id_fiche= '" + id + "'";
@@ -127,7 +141,7 @@ public class Fiche_suiviCRUD {
     
     private ResultSet rs;
     
-    public List<Fiche_suivi> FindAll() {
+    /*public List<Fiche_suivi> FindAll() {
     List<Fiche_suivi> list =new ArrayList<>();
      String requete4 = "SELECT * From `fiche_suivi`";
          try {
@@ -143,8 +157,7 @@ public class Fiche_suiviCRUD {
             System.err.println(ex.getMessage());
         }
  return list;
-    
-    }
+     }*/
     
  public void modifierFiche_suivi(Fiche_suivi fcd ,int id)
  {
@@ -162,13 +175,13 @@ public class Fiche_suiviCRUD {
  
  public List FindById(int id) {
         List<Fiche_suivi> list = new ArrayList<>();
-        String requette5 = "SELECT  `id_fiche `, `id_client `, `bilan_id`, `diagnostic`, `consigne_medicale` From `fiche_suivi` WHERE id_fiche= '" + id + "' ";
+        String requette5 = "SELECT `id_client`, `bilan_id`, `diagnostic`, `consigne_medicale` From `fiche_suivi` WHERE id_fiche= '" + id + "' ";
 
         try {
             Statement st = new MyConnection().getcnx().createStatement();
             rs = st.executeQuery(requette5);
             while (rs.next()) {
-                Fiche_suivi f = new Fiche_suivi(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5));
+                Fiche_suivi f = new Fiche_suivi(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4));
                 list.add(f);
             }
             System.out.println("Fiche_suivi trouvée avec succées !");
@@ -177,7 +190,27 @@ public class Fiche_suiviCRUD {
             System.err.println(ex.getMessage());
         }
         return list;
-    }  
+    }
+ 
+ 
+ /*public List FindByName(String name) {
+        List<Fiche_suivi> list = new ArrayList<>();
+        String requette5 = "SELECT `id_client`, `bilan_id`, `diagnostic`, `consigne_medicale` From `fiche_suivi` WHERE id_fiche= '" + id + "' ";
+
+        try {
+            Statement st = new MyConnection().getcnx().createStatement();
+            rs = st.executeQuery(requette5);
+            while (rs.next()) {
+                Fiche_suivi f = new Fiche_suivi(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4));
+                list.add(f);
+            }
+            System.out.println("Fiche_suivi trouvée avec succées !");
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return list;
+    }*/
 }
  
         
