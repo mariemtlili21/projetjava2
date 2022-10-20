@@ -28,24 +28,23 @@ public class MainClass {
     public static void main(String[] args) {
         //MyConnection mc = new MyConnection();
         Fiche_suiviCRUD fcd = new Fiche_suiviCRUD();
-       Fiche_suivi f = new Fiche_suivi(2,4,"bilan global","kinésithérapie");
+       Fiche_suivi f = new Fiche_suivi(2,4,"Analyse sanguine","effectuer un bilan SANGUIN global");
         BilanCRUD bcd = new BilanCRUD();
-        Bilan b = new Bilan("Analyse sanguine",createdate(2012,8,5),"anémie ferriprive");
+        Bilan b = new Bilan("SCANNER",createdate(2020,10,10),"hérnie discale ");
         //bcd.ajouterBilan(b);
-        //bcd.supprimerbilan(1);
-        //bcd.modifierBilan(b,2);
+        //bcd.supprimerbilan(5);
+        //bcd.modifierBilan(b,5);
         //System.out.println(bcd.afficherBilan());
         //List list = bcd.FindBilanById(2);
-        //List list1 = bcd.FindBilanByType("IRM");
-        //System.out.println(list1);
+        List list1 = bcd.FindBilanByType("IRM");
+        System.out.println(list1);
         //System.out.println(list);
         //fcd.ajouterFiche_suivi();
-        fcd.ajouterFiche_suivi2(f);
+        //fcd.ajouterFiche_suivi2(f);
         //f.ajouterFiche_suivi1(fcd);
          //System.out.println(fcd.afficherFiches_suivi());
-        //fcd.supprimer(8);
-        //fcd.modifierFiche_suivi(f,18);
-      
+        //fcd.supprimer(32);
+        //fcd.modifierFiche_suivi(f,32);
         //List list =  fcd.FindById(8);
         //System.out.println(list);
         //Mail send = new Mail();
